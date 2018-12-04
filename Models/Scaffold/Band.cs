@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore.Infrastructure;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -12,7 +11,6 @@ namespace FavoriteBand.Models.Scaffold
 
         public Band()
         {
-
         }
 
         public Band(ILazyLoader lazyLoader)
@@ -30,8 +28,9 @@ namespace FavoriteBand.Models.Scaffold
         public string Description { get; set; }
 
         public ICollection<Albums> Albums
-        { get => _LazyLoader.Load(this, ref _albums);
-          set => _albums = value;
+        {
+            get => _LazyLoader.Load(this, ref _albums);
+            set => _albums = value;
         }
     }
 }

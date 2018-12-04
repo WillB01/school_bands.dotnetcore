@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace FavoriteBand.Models.Scaffold
 {
@@ -41,7 +39,6 @@ namespace FavoriteBand.Models.Scaffold
                 entity.Property(e => e.Description).IsRequired();
 
                 entity.Property(e => e.Name).IsRequired();
-                
             });
         }
     }

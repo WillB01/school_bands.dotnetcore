@@ -12,7 +12,12 @@
     <div id="main-content">
         @RenderBody()
     </div>
-  
+    <div>
+        @{
+            await Html.RenderPartialAsync("_Forum");
+        }
+    </div>
+    <script src="~/lib/signalr/signalr.js"></script>
+    <script src="~/js/index.js"></script>
 </body>
 </html>
-

@@ -1,8 +1,6 @@
 ﻿using FavoriteBand.Models.Scaffold;
 using FavoriteBand.Services;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace FavoriteBand.Models
@@ -16,7 +14,7 @@ namespace FavoriteBand.Models
             _dataContext = dataContext;
         }
 
-        public async Task<IEnumerable<Band>>GetAllBands() => await Task.FromResult(_dataContext.Band);
+        public async Task<IEnumerable<Band>> GetAllBands() => await Task.FromResult(_dataContext.Band);
 
         public async Task AddBand(Band band)
         {
@@ -30,7 +28,5 @@ namespace FavoriteBand.Models
             var res = _dataContext.Band.Find(id);
             return res;
         }
-
-       
     }
 }

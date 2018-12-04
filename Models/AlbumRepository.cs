@@ -2,7 +2,6 @@
 using FavoriteBand.Services;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace FavoriteBand.Models
@@ -15,6 +14,7 @@ namespace FavoriteBand.Models
         {
             _dataContext = scaffoldContext;
         }
+
         public async Task AddAlbum(string title, string year, int bandId)
         {
             var a = new Albums

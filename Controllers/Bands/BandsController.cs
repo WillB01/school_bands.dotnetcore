@@ -1,12 +1,6 @@
-﻿using FavoriteBand.Models;
-using FavoriteBand.Models.Scaffold;
+﻿using FavoriteBand.Models.Scaffold;
 using FavoriteBand.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace FavoriteBand.Controllers.Bands
@@ -15,8 +9,7 @@ namespace FavoriteBand.Controllers.Bands
     {
         private readonly IBandRepository _bandRepository;
         private readonly IAlbumRepository _albumRepository;
-  
-        
+
         public BandsController(
             IBandRepository bandRepository, IAlbumRepository albumRepository)
         {
@@ -25,7 +18,7 @@ namespace FavoriteBand.Controllers.Bands
         }
 
         [HttpGet]
-        public async Task<IActionResult>Index()
+        public async Task<IActionResult> Index()
         {
             var result = await Task.FromResult(_bandRepository.GetAllBands()).Result;
             return View(result);
@@ -40,11 +33,6 @@ namespace FavoriteBand.Controllers.Bands
 
         [HttpGet]
         public IActionResult AddBand() => View();
-
-
-         
-
-
 
         [HttpPost]
         public async Task<IActionResult> AddBand([FromForm]Band band)
@@ -62,12 +50,10 @@ namespace FavoriteBand.Controllers.Bands
         {
             if (string.IsNullOrWhiteSpace(title) || string.IsNullOrWhiteSpace(year))
             {
-                return RedirectToAction(nameof(Details), new {id = bandId });
+                return RedirectToAction(nameof(Details), new { id = bandId });
             }
             await _albumRepository.AddAlbum(title, year, bandId);
-            return RedirectToAction(nameof(Details), new {id = bandId });
+            return RedirectToAction(nameof(Details), new { id = bandId });
         }
-
-
     }
 }
