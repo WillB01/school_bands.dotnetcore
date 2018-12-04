@@ -1,0 +1,45 @@
+﻿@model Band
+
+<div>
+    <div id="detail-band">
+        <h1>@Model.Name</h1>
+    </div>
+    <div id="detail-description">
+        <h3>Description</h3>
+        <p> @Model.Description </p>
+    </div>
+   
+    @if (Model.Albums == null)
+    {
+        <p>No Albums</p>
+    }
+    else
+    {
+        <div id="detail-album">
+            <h3>Albums</h3>
+            @foreach (var item in Model.Albums.OrderByDescending(p => p.Year))
+            {
+            <div class="album-content">
+                <p>@item.Title.</p>
+                <p>@item.Year.</p>
+            </div>
+            
+            
+            }
+        </div>
+        
+    }
+
+</div>
+<div>
+    <img id="band-img" src="~/images/korv.jpg" alt="KORV" />
+</div>
+<div>
+    <form asp-action="AddAlbum" method="post" autocomplete="off">
+        <input name="title" type="text" placeholder="album title" />
+        <input name="year" type="text" placeholder="album year" />
+        <input type="hidden" value="@Model.Id" name="bandId" />
+        <input type="submit" value="Create" />
+    </form>
+</div>
+

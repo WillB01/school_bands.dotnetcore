@@ -1,0 +1,11 @@
+﻿@model IEnumerable<Band>
+
+<div>
+    @foreach (var item in Model)
+    {
+        <a asp-action="Details" asp-route-id="@item.Id">@item.Name |</a>
+    }
+</div>
+
+
+
