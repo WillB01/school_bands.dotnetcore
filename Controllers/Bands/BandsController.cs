@@ -62,7 +62,7 @@ namespace FavoriteBand.Controllers.Bands
         {
             if (string.IsNullOrWhiteSpace(title) || string.IsNullOrWhiteSpace(year))
             {
-                return View();
+                return RedirectToAction(nameof(Details), new {id = bandId });
             }
             await _albumRepository.AddAlbum(title, year, bandId);
             return RedirectToAction(nameof(Details), new {id = bandId });
