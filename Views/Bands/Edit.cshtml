@@ -1,7 +1,7 @@
 ﻿@model Band
 
 <div id="edit-container">
-    
+
 
     <form asp-action="Edit" method="post" id="edit-form">
         <div id="band-edit-container">
@@ -11,24 +11,29 @@
             <input asp-for="Description" value="@Model.Description" />
             <input asp-for="Id" value="@Model.Id" type="hidden" />
         </div>
-      
-        @{
-            await Html.RenderPartialAsync("EditAlbums", Model.Albums);
-        }
+
+        <div id="edit-add-album-container">
+            <input id="add-album-title" name="Title" type="text" placeholder="album title" />
+            <input id="add-album-year" name="Year" type="text" placeholder="album year" />
+            <input id="add-album-bandId" type="hidden" value="@Model.Id" name="BandId" />
+            <button id="create-album-btn">Create</button>
+        </div>
+
+        <div id="edit-album-container-main">
+            @{
+                await Html.RenderPartialAsync("EditAlbums", Model.Albums);
+            }
+        </div>
+       
+
+
 
 
         <input type="submit" value="Save Changes" id="saveChanges" />
 
     </form>
 
-    <div id="edit-add-album-container">
-        <form asp-action="AddAlbum" method="post" autocomplete="off">
-            <input name="Title" type="text" placeholder="album title" />
-            <input name="Year" type="text" placeholder="album year" />
-            <input type="hidden" value="@Model.Id" name="BandId" />
-           <button>Create</button>
-        </form>
-    </div>
+   
 
 </div>
 

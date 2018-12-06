@@ -24,7 +24,7 @@ namespace FavoriteBand.Models
             var i = await _dataContext.SaveChangesAsync();
         }
 
-        public async Task DeleteAlbum(List<JsonPostStuff> ids)
+        public async Task DeleteAlbum(List<JsonDeleteAlbum> ids)
         {
             for (int i = 0; i < ids.ToArray().Length; i++)
             {

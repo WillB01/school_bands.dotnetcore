@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace FavoriteBand.Models
 {
-    public class JsonPostStuff
+    public class JsonAddAlbum
     {
-        public string AlbumId { get; set; }
+        public string Title { get; set; }
+        public string Year { get; set; }
         public string BandId { get; set; }
     }
 }

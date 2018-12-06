@@ -13,7 +13,7 @@ namespace FavoriteBand.Services
 
         Task<ICollection<Albums>> GetAlbumByBandId(int bandId);
 
-        Task DeleteAlbum(List<JsonPostStuff> ids);
+        Task DeleteAlbum(List<JsonDeleteAlbum> ids);
 
 
     }
