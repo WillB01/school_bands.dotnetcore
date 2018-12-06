@@ -95,7 +95,7 @@ namespace FavoriteBand.Controllers.Bands
         {
             var AlbumsToBeDeleted = newAlbums.albumIdsAndBandIds;
             var AlbumsToBeAdded = newAlbums.newAlbum;
-            await  _albumRepository.AddAlbum(AlbumsToBeAdded);
+            await _albumRepository.AddAlbum(AlbumsToBeAdded);
             await _albumRepository.DeleteAlbum(AlbumsToBeDeleted);
             //return RedirectToAction(nameof(Index), new { id = int.Parse(ids[0].BandId)});
           

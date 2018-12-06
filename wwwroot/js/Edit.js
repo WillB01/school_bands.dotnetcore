@@ -10,12 +10,14 @@ const albumBandId = document.querySelector('#add-album-bandId');
 const editMainAlbumsContainer = document.querySelector('#edit-album-container-main');
 let albumIdsAndBandIds = [];
 let newAlbum = []
+let newAlbumsRemoveContainer = [];
 
 
 editForm.addEventListener('submit', (e) => {
+    
     fetch("/Bands/Korv",
         {
-            
+
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -24,62 +26,105 @@ editForm.addEventListener('submit', (e) => {
 
             body: JSON.stringify({ newAlbum, albumIdsAndBandIds })
         })
-        .then(function (res) { console.log(res) })
-        .catch(function (res) { console.log(res) })
+        .then(function (res) { console.log(res);})
+        .catch (function (res) { console.log(res); });
 });
 
 
 const startCheckboxes = () => {
     const check = document.querySelectorAll('.checkbox-delete');
    
+
+
     for (var i = 0; i < check.length; i++) {
         check[i].checked = false;
 
         check[i].addEventListener('change', function (e) {
+  
+            const firstItemInBoxValue = e.target.value.split(',')[0];
             const divClass = document.querySelector(`div[data-key="${e.target.value.split(',')[0]}"]`);
-            console.log(newAlbum);
+          
             if (this.checked) {
                 albumIdsAndBandIds.push({ 'AlbumId': e.target.value.split(',')[0], 'BandId': e.target.value.split(',')[1] });
                 divClass.classList.add("hideAlbums");
 
-                newAlbum = newAlbum.filter(item => {
-                    console.log(e.target.value)
-                    return item.AlbumId !== e.target.value.split(',')[0];
-                });
-
+               
+                newAlbum = newAlbumFilter(e);
+               
+             
                 console.log(newAlbum);
+                
+                
             }
             if (!this.checked) {
                 divClass.classList.remove("hideAlbums");
                 albumIdsAndBandIds = albumIdsAndBandIds.filter(item => {
                     return item.AlbumId !== e.target.value.split(',')[0]; //DO TO FIX FILTERED FOR NOT IN DATABASE
                 });
+
+                newAlbumsRemoveContainer.forEach((item) => {
+                    if (item.fakeId.toString() === e.target.value.split(',')[0]) {
+                        newAlbum.push(item);
+                        newAlbum = removeDuplicates(newAlbum);
+                    };
+
+               
+                });
+                console.log(newAlbum);
             }
           
         });
     }
 
+    newAlbum = removeDuplicates(newAlbum);
+    newAlbumsRemoveContainer = removeDuplicates(newAlbumsRemoveContainer);
+
+ 
+
 };
 
 startCheckboxes();
+
+function newAlbumFilter(e) {
+    return newAlbum.filter(item => {
+        if (item.fakeId.toString() === e.target.value.split(',')[0]) {
+            newAlbumsRemoveContainer.push(item);
+        }
+        return item.fakeId.toString() !== e.target.value.split(',')[0];
+    });
+};
+
+function removeDuplicates(myObject) {
+    return myObject.filter((item, index, self) => {
+        
+        return index === self.findIndex((t) => (
+            t.Title === item.Title 
+        ))
+    }
+       
+        
+)};
 
 //////////////////////////////////////////////////
 
 let counter = 0;
 createAlbumBtn.addEventListener('click', (e) => {
     e.preventDefault();
-  
+    console.log(newAlbum);
     counter += 1;
 
     const title = albumTitle.value;
     const year = albumYear.value;
     const bandId = albumBandId.value;
 
+
     newAlbum.push({
         'Title': title,
         'Year': year,
-        'BandId': bandId
+        'BandId': bandId,
+        'fakeId': counter
     });
+
 
     
     albumTitle.value = '';
@@ -92,7 +137,7 @@ createAlbumBtn.addEventListener('click', (e) => {
 
     
     myDiv.innerHTML =
-        ` <div data-key=fake-${counter} id=${counter} class=${counter}>
+        ` <div data-key=${counter} id=${counter} class=${counter}>
                 <label>Album Title</label>
                 <input value="${title}" name="albumTitle" />
                 <input type="hidden" name="albumIds" value="@item.Id" />
@@ -102,7 +147,7 @@ createAlbumBtn.addEventListener('click', (e) => {
           
             <div>
                 <label>Delete</label>
-                <input class="checkbox-delete" type="checkbox" value=fake-${counter},${bandId}" />
+                <input class="checkbox-delete" type="checkbox" value=${counter},${bandId}" />
             </div>
            `;
     
