@@ -6,10 +6,10 @@
         <div class="edit-albums-container">
             <div data-key=@item.Id class=@item.Id>
                 <label>Album Title</label>
-                <input value="@item.Title" name="albumTitle" />
+                <input value="@item.Title" name="albumTitle"  autocomplete="off"/>
                 <input type="hidden" name="albumIds" value="@item.Id" />
                 <label>Album Year</label>
-                <input value="@item.Year" name="albumYear" />
+                <input value="@item.Year" name="albumYear"  autocomplete="off" />
 
                 <input type="hidden" value="@item.Id" name="Deleteid" />
                 <input type="hidden" value="@item.Title" name="DeletebandId" />

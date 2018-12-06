@@ -6,15 +6,15 @@
     <form asp-action="Edit" method="post" id="edit-form">
         <div id="band-edit-container">
             <label>Band Name</label>
-            <input asp-for="Name" value="@Model.Name" />
+            <input asp-for="Name" value="@Model.Name"   autocomplete="off"/>
             <label>Band Description</label>
-            <input asp-for="Description" value="@Model.Description" />
+            <input asp-for="Description" value="@Model.Description"  autocomplete="off" />
             <input asp-for="Id" value="@Model.Id" type="hidden" />
         </div>
 
         <div id="edit-add-album-container">
-            <input id="add-album-title" name="Title" type="text" placeholder="album title" />
-            <input id="add-album-year" name="Year" type="text" placeholder="album year" />
+            <input id="add-album-title" name="Title" type="text" placeholder="album title"  autocomplete="off" />
+            <input id="add-album-year" name="Year" type="text" placeholder="album year"  autocomplete="off"/>
             <input id="add-album-bandId" type="hidden" value="@Model.Id" name="BandId" />
             <button id="create-album-btn">Create</button>
         </div>

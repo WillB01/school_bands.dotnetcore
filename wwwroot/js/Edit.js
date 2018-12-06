@@ -33,11 +33,12 @@ editForm.addEventListener('submit', (e) => {
 
 const startCheckboxes = () => {
     const check = document.querySelectorAll('.checkbox-delete');
-   
+    console.log(newAlbumsRemoveContainer);
 
 
     for (var i = 0; i < check.length; i++) {
-        check[i].checked = false;
+        console.log(check[i].checked);
+      
 
         check[i].addEventListener('change', function (e) {
   
@@ -50,10 +51,7 @@ const startCheckboxes = () => {
 
                
                 newAlbum = newAlbumFilter(e);
-               
-             
-                console.log(newAlbum);
-                
+
                 
             }
             if (!this.checked) {
@@ -110,7 +108,6 @@ function removeDuplicates(myObject) {
 let counter = 0;
 createAlbumBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    console.log(newAlbum);
     counter += 1;
 
     const title = albumTitle.value;

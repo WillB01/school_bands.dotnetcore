@@ -76,26 +76,27 @@ namespace FavoriteBand.Controllers.Bands
 
         [HttpPost]
         public async Task<IActionResult> Edit(
-            [FromForm]Band band, string[] albumTitle, string[] albumYear, int[] albumIds, 
-            string Deleteid)
+            [FromForm]Band band, string[] albumTitle, string[] albumYear, int[] albumIds)
         {
             if (band.Id != 0)
             {
                 await _bandRepository.UppdateBand(band, albumTitle, albumYear, albumIds);
 
             }
-            //await _albumRepository.AddAlbum(albums);
-            //await _albumRepository.DeleteAlbum(ids);
+         
 
-            return RedirectToAction(nameof(Edit), new { id = band.Id });
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Korv( [FromBody] JsonMainModel newAlbums)
+        public async Task<IActionResult> Korv( [FromBody] JsonMainModel newAlbums, [FromForm]Band band, string[] albumTitle, string[] albumYear, int[] albumIds)
         {
             var AlbumsToBeDeleted = newAlbums.albumIdsAndBandIds;
             var AlbumsToBeAdded = newAlbums.newAlbum;
+
+           
             await _albumRepository.AddAlbum(AlbumsToBeAdded);
+            //await _bandRepository.UppdateBand(band, albumTitle, albumYear, albumIds);
             await _albumRepository.DeleteAlbum(AlbumsToBeDeleted);
             //return RedirectToAction(nameof(Index), new { id = int.Parse(ids[0].BandId)});
           
@@ -109,17 +110,5 @@ namespace FavoriteBand.Controllers.Bands
             //var result = _albumRepository.GetAlbumByBandId(id).Result;
             return PartialView(albums);
         }
-
-        //[HttpPost]
-        //public async Task<IActionResult> DeleteAlbum(int id, int bandId)
-        //{
-        //    await _albumRepository.DeleteAlbum(id);
-        //    return RedirectToAction(nameof(Edit), new { id = bandId });
-        //}
-
-
-
-
-
     }
 }
