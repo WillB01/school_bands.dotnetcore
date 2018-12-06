@@ -15,20 +15,40 @@ namespace FavoriteBand.Models
             _dataContext = scaffoldContext;
         }
 
-        public async Task AddAlbum(string title, string year, int bandId)
-        {
-            var a = new Albums
-            {
-                Title = title,
-                Year = year,
-                BandId = bandId,
-            };
-
-            _dataContext.Albums.Add(a);
+        public async Task AddAlbum(Albums album)
+        {   
+            album.Id = 0;
+            
+            _dataContext.Albums.Add(album);
             var i = await _dataContext.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<Band>> GetAllBands()
+        public async Task DeleteAlbum(List<JsonPostStuff> ids)
+        {
+            for (int i = 0; i < ids.ToArray().Length; i++)
+            {
+
+                var album = GetAlbumByBandId(int.Parse(ids[i].id));
+                var albumToDelete = await _dataContext.Albums.FindAsync(album);
+                 _dataContext.Albums.Remove(albumToDelete);
+            }
+            
+              
+           
+           
+            
+           
+            await _dataContext.SaveChangesAsync();
+        }
+
+        public async Task<ICollection<Albums>> GetAlbumByBandId(int bandId)
+        {
+            var band = await  _dataContext.Band.FindAsync(bandId);
+            var albums = band.Albums;
+            return albums;
+        }
+
+        public Task<IEnumerable<Albums>> GetAllAlbums()
         {
             throw new NotImplementedException();
         }

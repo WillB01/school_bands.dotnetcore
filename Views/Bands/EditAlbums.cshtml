@@ -1,0 +1,22 @@
+﻿@model ICollection<Albums>
+
+
+    @foreach (var item in Model)
+    {
+        <div>
+            <label>Album Title</label>
+            <input value="@item.Title" name="albumTitle" />
+            <input type="hidden" name="albumIds" value="@item.Id" />
+            <label>Album Year</label>
+            <input value="@item.Year" name="albumYear" />
+            
+            <input type="hidden" value="@item.Id" name="Deleteid" />
+            <input type="hidden" value="@item.Title" name="DeletebandId" />
+            
+            <input class="checkbox-delete" type="checkbox" value="@item.Id"/>
+            <input type="submit" value="Delete" name="deleteAlbum" />
+            
+        </div>
+    }
+
+

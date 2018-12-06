@@ -30,8 +30,9 @@ namespace FavoriteBand.Models.Scaffold
                 entity.HasOne(d => d.Band)
                     .WithMany(p => p.Albums)
                     .HasForeignKey(d => d.BandId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Albums_Band");
+
             });
 
             modelBuilder.Entity<Band>(entity =>
@@ -39,6 +40,9 @@ namespace FavoriteBand.Models.Scaffold
                 entity.Property(e => e.Description).IsRequired();
 
                 entity.Property(e => e.Name).IsRequired();
+                
+                
+               
             });
         }
     }

@@ -3,9 +3,9 @@
 <div>
     <form asp-action="AddBand" method="post" id="add-band" autocomplete="off">
         <input asp-for="Name" placeholder="Name" />
-        <span asp-validation-for="Name" class="text-danger"></span>
+        <span asp-validation-for="Name"></span>
         <input asp-for="Description" placeholder="Description" />
-        <span asp-validation-for="Description" class="text-danger"></span>
+        <span asp-validation-for="Description"></span>
         <input type="submit" value="Create" />
     </form>
 </div>

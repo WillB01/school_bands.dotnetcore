@@ -1,5 +1,6 @@
 ﻿document.addEventListener('DOMContentLoaded', () => {
     start();
+    
 });
 let userName = 'kewl';
 const connection = new signalR.HubConnectionBuilder()
@@ -23,6 +24,7 @@ function start() {
     const nameInput = document.querySelector('#name-input');
     const postContent = document.querySelector('#post-content');
     const chatForm = document.querySelector('#chat-form');
+
 
 
     chatForm.addEventListener('submit', (e) => {
@@ -58,4 +60,7 @@ function renderPost(name, time, message) {
 function onConnected() {
     console.log("connected");
 };
+
+
+
 

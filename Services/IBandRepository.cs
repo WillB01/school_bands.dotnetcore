@@ -11,5 +11,8 @@ namespace FavoriteBand.Services
         Band GetBandById(int id);
 
         Task AddBand(Band band);
+
+        Task DeleteBand(int id);
+        Task UppdateBand(Band band, string[] albumTitle, string[] albumYear, int[] albumIds);
     }
 }

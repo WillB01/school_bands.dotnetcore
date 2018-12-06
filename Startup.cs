@@ -20,7 +20,15 @@ namespace FavoriteBand
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options => options.AddPolicy("Cors", builder =>
+            {
+                builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            }));
             services.AddSignalR();
+         
             services.AddMvc();
             services.AddDbContext<ScaffoldContext>(options =>
             {
@@ -30,6 +38,7 @@ namespace FavoriteBand
 
             services.AddTransient<IBandRepository, BandRepository>();
             services.AddTransient<IAlbumRepository, AlbumRepository>();
+           
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -46,6 +55,7 @@ namespace FavoriteBand
             {
                 routes.MapHub<MyHub>("/forumhub");
             });
+            app.UseCors(config => config.WithOrigins("https://localhost:44361").AllowAnyHeader().AllowAnyMethod());
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
