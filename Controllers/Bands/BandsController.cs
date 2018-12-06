@@ -93,7 +93,8 @@ namespace FavoriteBand.Controllers.Bands
         [HttpPost]
         public async Task<IActionResult> Korv( [FromBody] List<JsonPostStuff> ids)
         {
-            return RedirectToAction(nameof(Index));
+             await _albumRepository.DeleteAlbum(ids);
+            return RedirectToAction(nameof(Index), new { id = int.Parse(ids[0].BandId)});
         }
 
         public IActionResult EditAlbums(Albums albums)

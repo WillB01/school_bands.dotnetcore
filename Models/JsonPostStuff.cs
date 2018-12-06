@@ -7,6 +7,7 @@ namespace FavoriteBand.Models
 {
     public class JsonPostStuff
     {
-        public string id { get; set; }
+        public string AlbumId { get; set; }
+        public string BandId { get; set; }
     }
 }

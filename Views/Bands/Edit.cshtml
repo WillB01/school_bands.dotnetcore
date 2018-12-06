@@ -2,14 +2,16 @@
 
 <div id="edit-container">
     
+
     <form asp-action="Edit" method="post" id="edit-form">
-       
-        <label>Band Name</label>
-        <input asp-for="Name" value="@Model.Name" />
-        <label>Band Description</label>
-        <input asp-for="Description" value="@Model.Description" />
-        <input asp-for="Id" value="@Model.Id" type="hidden" />
-        
+        <div id="band-edit-container">
+            <label>Band Name</label>
+            <input asp-for="Name" value="@Model.Name" />
+            <label>Band Description</label>
+            <input asp-for="Description" value="@Model.Description" />
+            <input asp-for="Id" value="@Model.Id" type="hidden" />
+        </div>
+      
         @{
             await Html.RenderPartialAsync("EditAlbums", Model.Albums);
         }
@@ -19,12 +21,12 @@
 
     </form>
 
-    <div>
+    <div id="edit-add-album-container">
         <form asp-action="AddAlbum" method="post" autocomplete="off">
             <input name="Title" type="text" placeholder="album title" />
             <input name="Year" type="text" placeholder="album year" />
             <input type="hidden" value="@Model.Id" name="BandId" />
-            <input type="submit" value="Create" />
+           <button>Create</button>
         </form>
     </div>
 
