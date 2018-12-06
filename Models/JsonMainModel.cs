@@ -7,8 +7,9 @@ namespace FavoriteBand.Models
 {
     public class JsonMainModel
     {
-       
-        public List<JsonDeleteAlbum> albumIdsAndBandIds { get; set; } // bad names it has to batch the incoming JS name
-        public List<JsonAddAlbum> newAlbum { get; set; }
+        // bad names it has to batch the incoming JS name
+
+        public List<JsonDeleteAlbum> albumIdsAndBandIds { get; set; }  //Delete albums
+        public List<JsonAddAlbum> newAlbum { get; set; } // new Album
     }
 }

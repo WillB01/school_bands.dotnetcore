@@ -7,7 +7,7 @@ namespace FavoriteBand.Services
 {
     public interface IAlbumRepository
     {
-        Task AddAlbum(Albums album);
+        Task AddAlbum(List<JsonAddAlbum> albumInfo);
 
         Task<IEnumerable<Albums>> GetAllAlbums();
 

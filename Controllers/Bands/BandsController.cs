@@ -47,17 +47,17 @@ namespace FavoriteBand.Controllers.Bands
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddAlbum(Albums albums)
-        {
-            if (!ModelState.IsValid)
-            {
-                return RedirectToAction(nameof(Details), new { id = albums.BandId });
-            }
+        //[HttpPost]
+        //public async Task<IActionResult> AddAlbum(Albums albums)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return RedirectToAction(nameof(Details), new { id = albums.BandId });
+        //    }
 
-            await _albumRepository.AddAlbum(albums);
-            return RedirectToAction(nameof(Edit), new { id = albums.BandId });
-        }
+        //    await _albumRepository.AddAlbum(albums);
+        //    return RedirectToAction(nameof(Edit), new { id = albums.BandId });
+        //}
 
 
         [HttpPost]
@@ -91,11 +91,17 @@ namespace FavoriteBand.Controllers.Bands
         }
 
         [HttpPost]
-        public async Task<IActionResult> Korv( [FromBody] JsonTest newAlbums)
+        public async Task<IActionResult> Korv( [FromBody] JsonMainModel newAlbums)
         {
-            // await _albumRepository.DeleteAlbum(ids);
+            var AlbumsToBeDeleted = newAlbums.albumIdsAndBandIds;
+            var AlbumsToBeAdded = newAlbums.newAlbum;
+            await  _albumRepository.AddAlbum(AlbumsToBeAdded);
+            await _albumRepository.DeleteAlbum(AlbumsToBeDeleted);
             //return RedirectToAction(nameof(Index), new { id = int.Parse(ids[0].BandId)});
-            return RedirectToAction(nameof(Details));
+          
+            return RedirectToAction(nameof(Index));
+
+
         }
 
         public IActionResult EditAlbums(Albums albums)

@@ -16,12 +16,25 @@ namespace FavoriteBand.Models
             _dataContext = scaffoldContext;
         }
 
-        public async Task AddAlbum(Albums album)
-        {   
-            album.Id = 0;
+        public async Task AddAlbum(List<JsonAddAlbum> albumInfo)
+        {
+            for (int i = 0; i < albumInfo.ToArray().Length; i++)
+            {
+                var newAlbum = new Albums
+                {
+                    BandId = int.Parse(albumInfo[i].BandId),
+                    Title = albumInfo[i].Title,
+                    Year = albumInfo[i].Year
+                };
+                _dataContext.Albums.Add(newAlbum);
+            }
+
+           
+            await _dataContext.SaveChangesAsync();
+            //album.Id = 0;
             
-            _dataContext.Albums.Add(album);
-            var i = await _dataContext.SaveChangesAsync();
+            //_dataContext.Albums.Add(album);
+            //var i = await _dataContext.SaveChangesAsync();
         }
 
         public async Task DeleteAlbum(List<JsonDeleteAlbum> ids)
@@ -33,6 +46,7 @@ namespace FavoriteBand.Models
                 _dataContext.Albums.Remove(album);
             }
 
+           
             await _dataContext.SaveChangesAsync();
 
 

@@ -13,9 +13,6 @@ let newAlbum = []
 
 
 editForm.addEventListener('submit', (e) => {
-    console.log(albumIdsAndBandIds);
-    console.log(newAlbum);
-    const test = [albumIdsAndBandIds, newAlbum]
     fetch("/Bands/Korv",
         {
             
@@ -34,38 +31,37 @@ editForm.addEventListener('submit', (e) => {
 
 const startCheckboxes = () => {
     const check = document.querySelectorAll('.checkbox-delete');
-    console.log(check.length);
+   
     for (var i = 0; i < check.length; i++) {
         check[i].checked = false;
 
         check[i].addEventListener('change', function (e) {
             const divClass = document.querySelector(`div[data-key="${e.target.value.split(',')[0]}"]`);
-            //const newCreatedDivs = document.querySelector(`div[data-key="${e.target.target.className}"]`);
-            console.log(e);
-
-            console.log(e);
+            console.log(newAlbum);
             if (this.checked) {
                 albumIdsAndBandIds.push({ 'AlbumId': e.target.value.split(',')[0], 'BandId': e.target.value.split(',')[1] });
-          
                 divClass.classList.add("hideAlbums");
-              
 
+                newAlbum = newAlbum.filter(item => {
+                    console.log(e.target.value)
+                    return item.AlbumId !== e.target.value.split(',')[0];
+                });
+
+                console.log(newAlbum);
             }
             if (!this.checked) {
                 divClass.classList.remove("hideAlbums");
                 albumIdsAndBandIds = albumIdsAndBandIds.filter(item => {
-                    return item.AlbumId !== e.target.value.split(',')[0];
+                    return item.AlbumId !== e.target.value.split(',')[0]; //DO TO FIX FILTERED FOR NOT IN DATABASE
                 });
             }
-            console.log(albumIdsAndBandIds);
+          
         });
     }
 
 };
 
 startCheckboxes();
-
-
 
 //////////////////////////////////////////////////
 
@@ -115,10 +111,5 @@ createAlbumBtn.addEventListener('click', (e) => {
 
     startCheckboxes();
 
-
-  
-
-
-    console.log(`${title} ${year} ${bandId}`);
 });
 
